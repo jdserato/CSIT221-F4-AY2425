@@ -1,19 +1,30 @@
 #include "list.h"
 #include <iostream>
+#include <cstdlib>
 using namespace std;
 // subclass of List
 class ArrayList : public List {
-	int size=0;
-	int array[50];
+	int size;
+	int capacity;
+	int* array;
 	
 	public:
+	ArrayList() {
+		size = 0;
+		capacity = 5;
+		array = (int*) malloc(capacity * sizeof(int));
+	}
+	
 	void add(int num) {
 		cout << "Hi " << num <<endl;
-		if (size < 5){
+		if (size < capacity){
 			array[size++] = num;
 		}	
 		else {
-			cout << "stop it" << endl;
+			capacity *= 1.5;
+			array = (int*) realloc(array, capacity * sizeof(int) );
+			cout << "Address of array: "<< array << endl;
+			array[size++] = num;
 		}
 	}
 	
@@ -36,7 +47,7 @@ class ArrayList : public List {
 	}
 	
 	void print() {
-		cout << "Size: " << size << endl;
+		cout << "Size: " << size << "/" << capacity << endl;
 		for (int i = 0; i < size; i++) {
 			cout << array[i] << " ";
 		}
