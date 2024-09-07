@@ -12,7 +12,7 @@ class ArrayList : public List {
 	ArrayList() {
 		size = 0;
 		capacity = 5;
-		array = (int*) malloc(capacity * sizeof(int));
+		array = (int*) calloc(capacity , sizeof(int));
 	}
 	
 	void add(int num) {
