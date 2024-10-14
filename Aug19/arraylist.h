@@ -15,6 +15,10 @@ class ArrayList : public List {
 		array = (int*) calloc(capacity , sizeof(int));
 	}
 	
+	int getSize() {
+		return size;
+	}
+	
 	void add(int num) {
 		cout << "Hi " << num <<endl;
 		if (size < capacity){
@@ -26,6 +30,10 @@ class ArrayList : public List {
 			cout << "Address of array: "<< array << endl;
 			array[size++] = num;
 		}
+	}
+	
+	int removeLast() {
+		return array[--size];
 	}
 	
 	int remove(int num) {
