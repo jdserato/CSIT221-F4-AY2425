@@ -46,8 +46,15 @@ class LinkedList : public List {
 	
 	void addAt(int num, int pos) {
 		node* curr = head;
-		for (int i = 0; i < pos; i++) {
-			curr = curr->next;
+		if (pos < size / 2) {
+			for (int i = 0; i < pos; i++) {
+				curr = curr->next;
+			}
+		} else {
+			curr = tail;
+			for (int i = size; i >= pos; i--) {
+				curr = curr->prev;
+			}
 		}
 		add_between(num, curr->prev, curr);
 	}
@@ -67,13 +74,10 @@ class LinkedList : public List {
 	}
 	
 	int removeHead() {
-		node* tmp = head;
-		head = head->next;
-		int ret = tmp->elem;
-		free(tmp);
-		size--;
-		head->prev = NULL;
-		return ret;
+		if (size == 0) {
+			return 0;
+		}
+		remove_node(head->next);
 	}
 	
 	int remove(int num) {
@@ -107,6 +111,18 @@ class LinkedList : public List {
 		int tmp = curr->elem;
 		remove_node(curr);
 		return tmp;
+	}
+	
+	void clear() {
+		node* curr = head;
+		while (curr) {
+			node* tmp = curr;
+			curr = curr->next;
+			free(tmp);
+		}
+		size = 0;
+		head = NULL;
+		tail = NULL;
 	}
 	
 	void print() {
